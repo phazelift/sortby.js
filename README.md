@@ -1,11 +1,11 @@
 # sortby
 ___
 
-#A modified insert-sort on an array of objects that now accepts multiple sort keys.#
+**A modified insert-sort on an array of objects that now accepts multiple sort keys.**
 ___
 
 
-##sortby##
+**sortby**
 > `<array> sortby( <array> arrayOfObjects, <array> sortkeys )`
 
 Requires an array of objects.
