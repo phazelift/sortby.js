@@ -23,6 +23,9 @@ var sortby= function( array, sortkeys ){
 
 	if ( (array.length > 1) && sortkeys ){
 
+		if ( typeof sortkeys === 'string' )
+			sortkeys= [ sortkeys ];
+
 		var sortkey	= sortkeys[ sortkeys.length- 1 ];
 		var length	= array.length;
 

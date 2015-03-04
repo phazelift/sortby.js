@@ -1,6 +1,6 @@
 {
   "name": "sortby.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A modified insert-sort on an array of objects that now accepts multiple sort keys.",
   "main": "sortby.min.js",
   "scripts": {
