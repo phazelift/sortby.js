@@ -1,7 +1,7 @@
 # sortby
 ___
 
-##A modified insert-sort on an array of objects that now accepts multiple sort keys.##
+#A modified insert-sort on an array of objects that now accepts multiple sort keys.#
 ___
 
 
