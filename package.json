@@ -1,0 +1,25 @@
+{
+  "name": "sortby.js",
+  "version": "0.0.1",
+  "description": "A modified insert-sort on an array of objects that now accepts multiple sort keys.",
+  "main": "sortby.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phazelift/sortby.js"
+  },
+  "keywords": [
+    "sort",
+    "order"
+  ],
+  "author": "Dennis Raymondo van der Sluis <phazelift@gmail.com> (https://github.com/phazelift/)",
+  "license": "GPL-3",
+  "bugs": {
+    "url": "https://github.com/phazelift/sortby.js/issues"
+  },
+  "homepage": "https://github.com/phazelift/sortby.js",
+  "dependencies": {},
+  "devDependencies": {}
+}
