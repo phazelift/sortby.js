@@ -41,7 +41,7 @@ var sortby= function( array, sortkeys ){
 			array[ +prev+ 1 ]= current;
 		}
 
-		if ( sortkeys.length > 1 ){
+		if ( sortkeys.length >= 1 ){
 			sortkeys.pop();
 			sortby( array, sortkeys );
 		}
