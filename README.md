@@ -29,11 +29,14 @@ console.log( sortBy( data, ['key1', 'key2']) );
 //  { key1: 111, key2: 2222, key3: 333 },
 //  { key1: 1111, key2: 222, key3: 3333 } ]
 
+
 console.log( sortBy( data, ['key1', 'key3']) );
-//[ { key1: 1, key2: 222, key3: 33 },
-//  { key1: 11, key2: 2, key3: 333 },
-//  { key1: 111, key2: 22, key3: 3 },
-//  { key1: 111, key2: 2222, key3: 333 },
-//  { key1: 1111, key2: 222, key3: 3333 } ]
+[ { key1: 1, key2: 222, key3: 33 },
+  { key1: 11, key2: 2, key3: 333 },
+  { key1: 111, key2: 22, key3: 3 },
+  { key1: 111, key2: 2222, key3: 333 },
+  { key1: 1111, key2: 222, key3: 3333 },
+  { key1: 111111, key2: 222222, key3: 33333 } ]
+
 ```
 ___
