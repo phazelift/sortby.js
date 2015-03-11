@@ -19,34 +19,36 @@
 
 "use strict"
 
-var sortby= function( array, sortkeys ){
+var sortby= function( array, sortkeys, reverse ){
 
-	if ( (array.length > 1) && sortkeys ){
+	if ( ('undefined' === typeof array) || (array.length < 2) || (! sortkeys) )
+		return array
 
-		if ( typeof sortkeys === 'string' )
-			sortkeys= [ sortkeys ];
+	if ( sortkeys && typeof sortkeys === 'string' )
+		sortkeys= [ sortkeys ];
 
-		var sortkey	= sortkeys[ sortkeys.length- 1 ];
-		var length	= array.length;
+	var sortkey	= sortkeys[ sortkeys.length- 1 ],
+			length	= array.length;
 
-		for ( var index= 1; index < length; index++ ){
-			var current	= array[ index ],
-					prev		= index- 1;
+	for ( var index= 1; index < length; index++ ){
+		var current	= array[ index ],
+				prev		= index- 1;
 
-			while ( (prev >= 0) && ( array[prev][sortkey] > current[sortkey]) ){
+		while ( (prev >= 0) && (array[ prev ][ sortkey ] > current[ sortkey ]) ){
 				array[ prev+ 1 ]= array[ prev ];
 				--prev;
-			}
-
-			array[ +prev+ 1 ]= current;
 		}
 
-		if ( sortkeys.length >= 1 ){
-			sortkeys.pop();
-			sortby( array, sortkeys );
-		}
-
+		array[ +prev+ 1 ]= current;
 	}
+
+	if ( sortkeys.length >= 1 ){
+		sortkeys.pop();
+		sortby( array, sortkeys );
+	}
+
+	if ( reverse )
+		array= array.reverse();
 
 	return array;
 };
