@@ -24,28 +24,35 @@ var sortby= function( array, sortkeys, reverse ){
 	if ( ('undefined' === typeof array) || (array.length < 2) || (! sortkeys) )
 		return array
 
-	if ( sortkeys && typeof sortkeys === 'string' )
+	if ( typeof sortkeys === 'string' )
 		sortkeys= [ sortkeys ];
 
-	var sortkey	= sortkeys[ sortkeys.length- 1 ],
-			length	= array.length;
+	var arrayLength	= array.length;
 
-	for ( var index= 1; index < length; index++ ){
-		var current	= array[ index ],
-				prev		= index- 1;
 
-		while ( (prev >= 0) && (array[ prev ][ sortkey ] > current[ sortkey ]) ){
-				array[ prev+ 1 ]= array[ prev ];
-				--prev;
+	function sort( array, sortkeys ){
+
+		var sortkey= sortkeys[ sortkeys.length- 1 ];
+
+		for ( var index= 1; index < arrayLength; index++ ){
+			var current	= array[ index ],
+					prev		= index- 1;
+
+			while ( (prev >= 0) && (array[ prev ][ sortkey ] > current[ sortkey ]) ){
+					array[ prev+ 1 ]= array[ prev ];
+					--prev;
+			}
+
+			array[ +prev+ 1 ]= current;
 		}
 
-		array[ +prev+ 1 ]= current;
+		if ( sortkeys.length > 1 ){
+			sortkeys.pop();
+			sort( array, sortkeys );
+		}
 	}
 
-	if ( sortkeys.length >= 1 ){
-		sortkeys.pop();
-		sortby( array, sortkeys );
-	}
+	sort( array, sortkeys );
 
 	if ( reverse )
 		array= array.reverse();
@@ -55,5 +62,5 @@ var sortby= function( array, sortkeys, reverse ){
 
 if ( 'undefined' !== typeof module )
 	module.exports= sortby;
-if ( 'undefined' !== typeof window )
+else if ( 'undefined' !== typeof window )
 	window.sortby= sortby;
