@@ -22,8 +22,10 @@
 
 var sortby= function( array, sortkeys, doReverse ){
 
+	var arrayLength= array.length;
+
 	// return immediately if there is nothing to sort
-	if ( ('object' !== typeof array) || !(array instanceof Array) || (array.length < 2) )
+	if ( ('object' !== typeof array) || !(array instanceof Array) || (arrayLength < 2) )
 		return array;
 
 	// auto-find keys if no sortkeys are given
@@ -35,11 +37,6 @@ var sortby= function( array, sortkeys, doReverse ){
 			// allow for sortkeys argument to be a single key as String
 			if ( typeof sortkeys === 'string' )
 				sortkeys= [ sortkeys ];
-
-
-	var
-		arrayLength	= array.length,
-		sortkey;
 
 
 	function nativeSort(){
@@ -56,30 +53,34 @@ var sortby= function( array, sortkeys, doReverse ){
 	}
 
 
+
 	function insertSort(){
-		while ( sortkeys.length ){
-			sortkey= sortkeys[ sortkeys.length- 1 ];
-			for ( var index= 1; index < arrayLength; index++ ){
-				var
-					current	= array[ index ],
+
+		var sortkey= sortkeys[ sortkeys.length- 1 ];
+
+		for ( var index= 1; index < arrayLength; index++ ){
+			var current	= array[ index ],
 					prev		= index- 1;
 
-				while ( (prev >= 0) && (array[ prev ][ sortkey ] > current[ sortkey ]) ){
-						array[ prev+ 1 ]= array[ prev ];
-						--prev;
-				}
-				array[ +prev+ 1 ]= current;
+			while ( (prev >= 0) && (array[ prev ][ sortkey ] > current[ sortkey ]) ){
+					array[ prev+ 1 ]= array[ prev ];
+					--prev;
 			}
-			sortkeys.pop();
+
+			array[ +prev+ 1 ]= current;
 		}
-		return array;
+
+		if ( sortkeys.length > 1 ){
+			sortkeys.pop();
+			insertSort();
+		}
 	}
 
 
 	function swapReverse(){
 		var
 			head	= 0,
-			tail	= array.length- 1,
+			tail	= arrayLength- 1,
 			stop	= tail/ 2;
 
 		while ( head < stop ){
