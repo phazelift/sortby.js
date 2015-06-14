@@ -1,6 +1,6 @@
 // sortby.js
 //
-//	A modified insert-sort that now accepts multiple sort keys
+//	A fast collection sort on one or multiple keys, with native support
 //
 // Copyright (c) 2015 Dennis Raymondo van der Sluis
 //
@@ -19,48 +19,104 @@
 
 "use strict"
 
-var sortby= function( array, sortkeys, reverse ){
 
-	if ( ('undefined' === typeof array) || (array.length < 2) || (! sortkeys) )
-		return array
+var sortby= function( array, sortkeys, doReverse ){
 
-	if ( typeof sortkeys === 'string' )
-		sortkeys= [ sortkeys ];
+	// return immediately if there is nothing to sort
+	if ( ('object' !== typeof array) || !(array instanceof Array) || (array.length < 2) )
+		return array;
 
-	var arrayLength	= array.length;
+	// auto-find keys if no sortkeys are given
+	if ( ! sortkeys ){
+		var sortkeys= [];
+		for ( var key in array[0] )
+			sortkeys.push( key );
+	} else
+			// allow for sortkeys argument to be a single key as String
+			if ( typeof sortkeys === 'string' )
+				sortkeys= [ sortkeys ];
 
 
-	function sort( array, sortkeys ){
+	var
+		arrayLength	= array.length,
+		sortkey;
 
-		var sortkey= sortkeys[ sortkeys.length- 1 ];
 
-		for ( var index= 1; index < arrayLength; index++ ){
-			var current	= array[ index ],
-					prev		= index- 1;
-
-			while ( (prev >= 0) && (array[ prev ][ sortkey ] > current[ sortkey ]) ){
-					array[ prev+ 1 ]= array[ prev ];
-					--prev;
-			}
-
-			array[ +prev+ 1 ]= current;
-		}
-
-		if ( sortkeys.length > 1 ){
-			sortkeys.pop();
-			sort( array, sortkeys );
-		}
+	function nativeSort(){
+		return array.sort( function( a, b ){
+      for ( var i= 0; i < sortkeys.length; i++ ){
+        var key= sortkeys[i];
+        if ( a[key] > b[key] )
+          return 1;
+        if ( a[key] < b[key] )
+          return -1;
+      }
+      return 0;
+		});
 	}
 
-	sort( array, sortkeys );
 
-	if ( reverse )
-		array= array.reverse();
+	function insertSort(){
+		while ( sortkeys.length ){
+			sortkey= sortkeys[ sortkeys.length- 1 ];
+			for ( var index= 1; index < arrayLength; index++ ){
+				var
+					current	= array[ index ],
+					prev		= index- 1;
+
+				while ( (prev >= 0) && (array[ prev ][ sortkey ] > current[ sortkey ]) ){
+						array[ prev+ 1 ]= array[ prev ];
+						--prev;
+				}
+				array[ +prev+ 1 ]= current;
+			}
+			sortkeys.pop();
+		}
+		return array;
+	}
+
+
+	function swapReverse(){
+		var
+			head	= 0,
+			tail	= array.length- 1,
+			stop	= tail/ 2;
+
+		while ( head < stop ){
+			var temp= array[ head ];
+			array[ head ]= array[ tail ];
+			array[ tail ]= temp;
+			head++;
+			tail--;
+		}
+		return array;
+	}
+
+
+	// use native sort if available
+	if ( Array.prototype.sort )
+		nativeSort();
+	else
+		insertSort();
+
+
+	if ( doReverse )
+		// use native reverse if available
+		if ( Array.prototype.reverse )
+			array.reverse()
+		else
+			swapReverse();
 
 	return array;
+
 };
 
-if ( 'undefined' !== typeof module )
+
+if ( ('undefined' !== typeof define ) && ('function' === typeof define) && define.amd )
+	define( 'sortby', [], function(){
+		return sortby;
+	})
+else if ( 'undefined' !== typeof module )
 	module.exports= sortby;
 else if ( 'undefined' !== typeof window )
 	window.sortby= sortby;

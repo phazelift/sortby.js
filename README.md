@@ -1,16 +1,32 @@
-# sortby
+# sortby.js
 ___
 
-A modified insert-sort on an array of objects. It accepts multiple sort keys, and can sort in reverse order.
+###A fast collection sort on one or multiple keys, with native support
+
+	- native
+			Array.prototype.sort with optimized multi-key sort
+			reverse with Array.prototype.reverse
+
+	- javascript algorithms for backwards compatibility
+			sort with multi-key insert-sort implementation
+			reverse with swap-reverse implementation
+
+Can be used with Browser, Node.js and RequireJS(AMD).
 ___
 <br/>
 
 **sortby**
-> `<array> sortby( <array> arrayOfObjects, <array> sortkeys, <boolean> reverse )`
+> `<array> sortby( <array> collection, <array> sortkeys, <boolean> reverse )`
 
-Requires an array of objects. Returns the array sorted by a insert-sort algorithm that sorts the array
-of objects by one (or more) of it's keys. 'sortkeys' can be a string or an array of strings.
+Requires an array of objects. Returns the array sorted by one (or more) of it's objects keys.
+
+'sortkeys' can be a string, or an array of strings in case of multiple sort keys.
+
+If sortkeys is not given, it will default to all keys found in the first entry of the array.
+
 If reverse is given a truthy value, the array will be sorted in reverse.
+
+In case of invalid input, the original array is returned unchanged.
 
 The first sortkey dominates over the next, and so forth:
 ```javascript

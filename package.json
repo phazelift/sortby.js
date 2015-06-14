@@ -1,7 +1,7 @@
 {
   "name": "sortby.js",
-  "version": "0.0.9",
-  "description": "A modified insert-sort on an array of objects.",
+  "version": "0.1.0",
+  "description": "A fast collection sort on one or multiple keys, with native support",
   "main": "sortby.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
