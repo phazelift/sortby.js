@@ -41,7 +41,8 @@ var sortby= function( array, sortkeys, doReverse ){
 
 	function nativeSort(){
 		return array.sort( function( a, b ){
-      for ( var i= 0; i < sortkeys.length; i++ ){
+			var length= sortkeys.length- 1;
+      for ( var i= 0; i < length; i++ ){
         var key= sortkeys[i];
         if ( a[key] > b[key] )
           return 1;

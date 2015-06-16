@@ -1,6 +1,6 @@
 {
   "name": "sortby.js",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A fast collection sort on one or multiple keys, with native support",
   "main": "sortby.min.js",
   "scripts": {
