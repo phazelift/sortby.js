@@ -39,18 +39,21 @@ var sortby= function( array, sortkeys, doReverse ){
 				sortkeys= [ sortkeys ];
 
 
+
 	function nativeSort(){
-		return array.sort( function( a, b ){
-			var length= sortkeys.length- 1;
-      for ( var i= 0; i < length; i++ ){
-        var key= sortkeys[i];
-        if ( a[key] > b[key] )
-          return 1;
-        if ( a[key] < b[key] )
-          return -1;
-      }
-      return 0;
-		});
+		var sortkey= sortkeys[ sortkeys.length- 1 ];
+		array.sort( function( a, b ){
+			if ( a[sortkey] > b[sortkey] )
+				return 1;
+			if ( a[sortkey] < b[sortkey] )
+				return -1;
+			return 0;
+      });
+
+	   if ( sortkeys.length > 1 ){
+			sortkeys.pop();
+			nativeSort();
+		}
 	}
 
 
