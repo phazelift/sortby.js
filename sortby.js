@@ -40,26 +40,7 @@ var sortby= function( array, sortkeys, doReverse ){
 
 
 
-	function nativeSort(){
-		var sortkey= sortkeys[ sortkeys.length- 1 ];
-		array.sort( function( a, b ){
-			if ( a[sortkey] > b[sortkey] )
-				return 1;
-			if ( a[sortkey] < b[sortkey] )
-				return -1;
-			return 0;
-      });
-
-	   if ( sortkeys.length > 1 ){
-			sortkeys.pop();
-			nativeSort();
-		}
-	}
-
-
-
 	function insertSort(){
-
 		var sortkey= sortkeys[ sortkeys.length- 1 ];
 
 		for ( var index= 1; index < arrayLength; index++ ){
@@ -81,6 +62,7 @@ var sortby= function( array, sortkeys, doReverse ){
 	}
 
 
+
 	function swapReverse(){
 		var
 			head	= 0,
@@ -98,12 +80,8 @@ var sortby= function( array, sortkeys, doReverse ){
 	}
 
 
-	// use native sort if available
-	if ( Array.prototype.sort )
-		nativeSort();
-	else
-		insertSort();
 
+	insertSort();
 
 	if ( doReverse )
 		// use native reverse if available
@@ -115,6 +93,7 @@ var sortby= function( array, sortkeys, doReverse ){
 	return array;
 
 };
+
 
 
 if ( ('undefined' !== typeof define ) && ('function' === typeof define) && define.amd )
